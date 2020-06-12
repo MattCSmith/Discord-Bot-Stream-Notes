@@ -1,7 +1,5 @@
 # Discord-Bot-Stream-Notes
 
-# Discord Bots Walkthrough
-
 ## Introduction
 During the live stream we are going to be taking a look at the [Discord.js](https://discord.js.org/#/) NPM Module, which allows us to interact with the [Discord API](https://discordapp.com/developers/docs/intro) with ease. 
 
@@ -34,7 +32,7 @@ Discord have recognised this and recently vaguely outlined their plans for a bri
 ## Hosting Options
 There are a range of hosting options available for you to choose. Which one you should chose is going to vary on your needs and budget. Each of the options have their pros and cons, which you will need to weigh up against you requirements. In order of my personal favourites, the most common options are:
 
-**[Digital Ocean](https://m.do.co/c/872bc7d3700d)**
+### **[Digital Ocean](https://m.do.co/c/872bc7d3700d)**
 Personally his is my favourite method, although this option isn't for everyone due to the requirement for an understanding of devops, this method provides a lot of freedom, customisability and a complete tailored solution. You can also run multiple bots on the same droplet. 
 
 | Pros | Cons |
@@ -46,7 +44,7 @@ Personally his is my favourite method, although this option isn't for everyone d
 
 AWS and similar VPS services, would also fall into this category. And whilst hey are all valid options, I generally default to Digital Ocean due to familiarity and ease of use. 
 
-**[Heroku](https://www.heroku.com/)**
+### **[Heroku](https://www.heroku.com/)**
 I started out hosting my bots on Heroku and will occasionally still use Heroku for simple bots that are maybe under collaborative development, due to the simple CI/CD options available. 
 
 | Pros | Cons |
@@ -57,23 +55,65 @@ I started out hosting my bots on Heroku and will occasionally still use Heroku f
 | • Set it & forget it |  |
 
 
-**[Vercel (formerly now.sh/zeit)](https://vercel.com/)**
+### **[Vercel (formerly now.sh/zeit)](https://vercel.com/)**
 I haven't really used this enough to really pass judgement and they have likely undergone major changes since I last used them. The service was fairly similar to Heroku, however the installation and configuration was more complex and time consuming than it needed to be. 
 
-**Your own PC**
+### **Your own PC**
 Running the bot from your machine during development is one thing, However I really wouldn't recommend this option, especially long term.
 
 
 ## Time To Code!
 Coding a Discord bot is fairly straight forward, most people are often shocked at how little code is required to get a basic bot running. But before we look at any code, lets take a quick look at the requirements. 
 
-#### Requirements: 
+### Requirements: 
 1. **Javascript Knowledge** - You can create Discord bots in a range of different languages, but we are going to focus on Javascript here. However, I would imagine some of it will translate across languages. 
 
-Obviously the better you know Javascript, the easier you will find coding your bot. But a basic understanding is all it takes. Zerobot v1 was born in my first month of learning Javascript!
+   Obviously the better you know Javascript, the easier you will find coding your bot. But a basic understanding is all it takes. Zerobot v1 was born in my first month of learning Javascript!
 
-2. 
+2. **A Code Editor** - We will be using Visual Studio code, but Sublime or Atom etc will work just fine. 
 
+3. **Node.js** - You will need V6 or above, should you need to you can download it [here](https://nodejs.org/en/download/). 
+
+4. **Options Extras** - Although this is outside the scope of this stream, if you require sound support (eg. Music bots) you will need some further packages. You can find more information about that in the TL;DR for you OS [here](https://anidiots.guide/getting-started)
+
+### Event Based API
+Discord explains their API in the following statement:
+> Discord's API is based around two core layers, a HTTPS/REST API for general operations, and persistent secure WebSocket based connection for sending and subscribing to real-time events. The most common use case of the Discord API will be providing a service, or access to a platform through the OAuth2 API.
+
+What this essentially means is that, we program our bots to listen out for key events that we are interested in and consume the payload that is sent along side the event. This might sound complicated, but don't worry it will all make sense with the examples. 
+
+Once we consume the payload object and have run some logic against it, there are various endpoints of their restful API we can use to perform further actions. Lets take a look at a simple form bot. 
+
+### A Simple Bot
+The snippet below is a functional bot, in which it really only has two features:
+1. We are listening out for Discord to send us the `Ready Event`, this just means that our bot has successfully authenticated using the credentials we provide it later on in the code. Once we recieve that event, we then console.log that we have logged in as the bot's name. 
+
+2. Secondly we are listening for a message event, so when ever a message gets sent in a channel the bot can read, discord will send us the message event. Inside this payload, we will be give an object (name here as `msg`) which will contain a bunch of data we can run logic on. In this case we are testing if the message is "ping", if it is we use a Discord.js Function to reply to the message as the bot. 
+
+
+```js
+const Discord = require('discord.js');
+const client = new Discord.Client();
+
+client.on('ready', () => {
+  console.log(`Logged in as ${client.user.tag}!`);
+});
+
+client.on('message', msg => {
+  if (msg.content === 'ping') {
+    msg.reply('Pong!');
+  }
+});
+
+client.login('token');
+```
+
+### Getting Started
+Lets get our workspace set up, so we can test out the above example and really get a feel for how it works. 
+
+1. Create a bot account & get your **CONFIDENTIAL** Discord Bot Token
+2. Create a test server & add your bot too it. Ensuring it has sufficient permissions.
+3. Open a new workspace in your editor and install the required packages. 
 
 ## Resources
 - [Future Update](https://blog.discord.com/the-future-of-bots-on-discord-4e6e050ab52e)
