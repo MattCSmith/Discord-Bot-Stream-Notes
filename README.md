@@ -125,3 +125,15 @@ During the stream, we will start implementing some commands and features to brin
 - [Super simple bot example](https://github.com/amishshah/discord.js-guide/blob/master/development/first-bot.md)
 - [Discord JS Documentation](https://discord.js.org/#/)
 - [Heroku Hosting Example](https://www.youtube.com/watch?v=NM8IMyqpvqU)
+
+
+## Handy Snippets
+This snippet tries to generate a bot invite link and if it succeds will log the link in the console. I usually have this in the ready event.
+```js
+  try {
+     let link = await client.generateInvite(["ADMINISTRATOR"]);
+     console.log(link);
+  } catch (e) {
+     console.log(e.stack);
+  }
+```
