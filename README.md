@@ -114,6 +114,9 @@ Lets get our workspace set up, so we can test out the above example and really g
 1. Create a bot account & get your **CONFIDENTIAL** Discord Bot Token
 2. Create a test server & add your bot too it. Ensuring it has sufficient permissions.
 3. Open a new workspace in your editor and install the required packages. 
+4. Add in our sample code, test it and expand upon it. 
+
+During the stream, we will start implementing some commands and features to bring this bot to life and demonstrate the power and flexibility of the Discord API. We would love to make this part super interactive, please share any suggestions, features and tips. You will get a chance to help us write the code and test it out. 
 
 ## Resources
 - [Future Update](https://blog.discord.com/the-future-of-bots-on-discord-4e6e050ab52e)
